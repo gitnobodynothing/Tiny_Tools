@@ -5,8 +5,8 @@
 保存到本地，然后把路径作为书签添加到收藏夹即可。  
 ![书签图样](https://github.com/gitnobodynothing/Tiny_Tools/blob/main/IMG/2025-02-04_132555.png)
 
-## [显示网页图片小书签](https://github.com/gitnobodynothing/Tiny_Tools/blob/main/%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E5%B0%8F%E4%B9%A6%E7%AD%BE.js)
-网上看到显示图片的小书签，图片布局不太合理，用 AI 重写了一个。
+## [显示图片小书签](https://github.com/gitnobodynothing/Tiny_Tools/blob/main/%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E5%B0%8F%E4%B9%A6%E7%AD%BE.js)
+显示网页所有图片的小书签。
 
 ## [站内搜索小书签](https://github.com/gitnobodynothing/Tiny_Tools/blob/main/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%B0%8F%E4%B9%A6%E7%AD%BE.js)
 用 "关键词 + site:" 指令在Google 搜索当前网站 。
