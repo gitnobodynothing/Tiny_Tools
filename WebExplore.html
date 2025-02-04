@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>WebExplore</title>
+    <!-- Base64 格式的嵌入式图标 -->
+    <link rel="icon" href="data:image/png;base64,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" type="image/png">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        #status {
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>正在扫描局域网文件管理服务...</h1>
+    <p id="status">请稍候，系统正在自动检测。</p>
+
+    <script>
+        (function() {
+            var s = ['192.168.0'],
+                i = [];
+
+            // 生成 IP 地址列表
+            s.forEach(function(e) {
+                for (var t = 100; t <= 125; t++) {
+                    i.push(e + '.' + t);
+                }
+            });
+
+            var found = false;
+
+            // 扫描 IP 地址
+            i.forEach(function(e) {
+                fetch('http://' + e + ':1111', { method: 'HEAD', mode: 'no-cors' })
+                    .then(function() {
+                        found = true;
+                        document.getElementById('status').innerHTML = 
+                            '已找到服务，正在跳转到：<a href="http://' + e + ':1111" target="_blank">http://' + e + ':1111</a>';
+                        window.location.href = 'http://' + e + ':1111';
+                    })
+                    .catch(function() {});
+            });
+
+            // 超时处理
+            setTimeout(function() {
+                if (!found) {
+                    document.getElementById('status').innerText = '未找到服务，请确保手机开启了网络共享服务并和电脑连接在同一局域网。';
+                    alert('找不到服务');
+                }
+            }, 10000);
+        })();
+    </script>
+</body>
+</html>
