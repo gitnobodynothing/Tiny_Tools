@@ -11,5 +11,5 @@
 ## [站内搜索小书签](https://github.com/gitnobodynothing/Tiny_Tools/blob/main/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%B0%8F%E4%B9%A6%E7%AD%BE.js)
 用 "关键词 + site:" 指令在Google 搜索当前网站 。
 
-##[花瓣链接直达](https://github.com/gitnobodynothing/Tiny_Tools/blob/main/%E8%8A%B1%E7%93%A3%E9%93%BE%E6%8E%A5%E7%9B%B4%E8%BE%BE.js)
+## [花瓣链接直达](https://github.com/gitnobodynothing/Tiny_Tools/blob/main/%E8%8A%B1%E7%93%A3%E9%93%BE%E6%8E%A5%E7%9B%B4%E8%BE%BE.js)
 花瓣采集引用链接点击直接进入原网页，无需打开花瓣倒计时跳转页面。
