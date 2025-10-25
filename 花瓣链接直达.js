@@ -1,69 +1,66 @@
 // ==UserScript==
-// @name         Huaban Direct Links
+// @name         花瓣网链接直接跳转
+// @name:en      Huaban Direct Link
 // @namespace    http://tampermonkey.net/
 // @version      1.1
-// @description  Replace /go?pin_id= links on huaban.com with actual target URLs from the title attribute or URL parameters.
-// @author       You
-// @match        https://huaban.com/*
+// @description  跳过花瓣网（huaban.com）的中间跳转页面，直接访问图片来源网址。
+// @description:en  Bypass the redirect page on huaban.com and go directly to the source URL.
+// @author       Your Name
+// @match        https://huaban.com/pins/*
 // @grant        none
+// @run-at       document-start
 // ==/UserScript==
 
 (function() {
-  'use strict';
+    'use strict';
 
-  // 处理链接替换的函数
-  function processLinks() {
-    // 获取所有包含目标链接特征的 <a> 标签
-    const links = document.querySelectorAll('a[href*="/go?pin_id="]');
+    // 核心函数：修复链接
+    function fixHuabanLinks() {
+        // 1. 使用CSS属性选择器，精确查找所有需要修改的链接
+        // a[href^="/go?pin_id="] 表示选择所有href属性以"/go?pin_id="开头的<a>标签
+        const linksToFix = document.querySelectorAll('a[href^="/go?pin_id="]');
 
-    // 遍历所有链接
-    links.forEach(link => {
-      // 获取 title 属性中的目标链接
-      const titleURL = link.getAttribute('title');
+        // 2. 遍历找到的所有链接
+        linksToFix.forEach(link => {
+            // 获取title属性，这里面存放着真实的URL
+            const realUrl = link.title;
 
-      // 获取 href 中的 url 参数
-      const hrefParams = new URLSearchParams(link.getAttribute('href'));
-      const urlParam = hrefParams.get('url');
+            // 3. 确保title属性存在并且不为空
+            if (realUrl) {
+                // 4. 将<a>标签的href属性修改为真实的URL
+                link.href = realUrl;
 
-      // 确定目标 URL
-      let targetURL = null;
+                // (可选) 可以在控制台输出日志，方便调试
+                // console.log(`[花瓣网直接跳转] 链接已修复: ${realUrl}`);
+            }
+        });
+    }
 
-      // 如果 title 属性是有效的 URL，则使用 title
-      if (titleURL && (titleURL.startsWith('http://') || titleURL.startsWith('https://'))) {
-        targetURL = titleURL;
-      }
-      // 如果 url 参数存在，则构建目标 URL
-      else if (urlParam) {
-        // 如果 url 参数包含协议（如 http:// 或 https://），则直接使用
-        if (urlParam.startsWith('http://') || urlParam.startsWith('https://')) {
-          targetURL = urlParam;
+    // --- 处理动态加载内容 ---
+    // 花瓣网是瀑布流网站，内容会动态加载进来。
+    // 我们需要一个“监视器”来检测页面的变化，当新内容出现时，再次执行我们的修复函数。
+    // MutationObserver 就是专门做这个的。
+
+    // 1. 创建一个监视器实例，当页面发生变化时，就调用 fixHuabanLinks 函数
+    const observer = new MutationObserver(fixHuabanLinks);
+
+    // 2. 配置监视器
+    const config = {
+        childList: true, // 监视目标节点（这里是body）的子节点（添加或删除）的变化
+        subtree: true    // 监视所有后代节点的变化
+    };
+
+    // 3. 等待DOM加载完毕后，开始监视
+    // 使用 document.documentElement 而不是 document.body，可以更早开始监视
+    new MutationObserver((_, obs) => {
+        if(document.body) {
+            // 首次执行，修复页面上已经存在的链接
+            fixHuabanLinks();
+            // 开始监视整个body，以便处理后续动态加载的内容
+            observer.observe(document.body, config);
+            // 监视器启动后，断开自身的连接，因为它只运行一次
+            obs.disconnect();
         }
-        // 否则，直接使用 url 参数作为目标 URL（不添加 www）
-        else {
-          targetURL = `https://${urlParam}`;
-        }
-      }
+    }).observe(document.documentElement, {childList: true, subtree: true});
 
-      // 如果目标 URL 存在，则替换 href
-      if (targetURL) {
-        link.setAttribute('href', targetURL);
-        link.setAttribute('rel', 'noopener noreferrer');
-      }
-    });
-  }
-
-  // 初始运行
-  processLinks();
-
-  // 监听 DOM 变化
-  const observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-        processLinks();
-      }
-    });
-  });
-
-  // 开始监听
-  observer.observe(document.body, { childList: true, subtree: true });
 })();
